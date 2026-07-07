@@ -1,45 +1,41 @@
+import { Order } from "sequelize";
 import Item from "../models/item";
 import Location from "../models/location";
 
+
 export const getAllItems=async(
-    sortby?: "name" | "price" | "location"|undefined , 
-    order?:"asc"| "desc" |undefined, 
-    id?:number |undefined
+    page:number=1, 
+    sortBy?: "name" | "price" | "location" , 
+    order?:"asc"| "desc" , 
+    id?:number ,
     )=>{
-    let items=[];
 
-    if(id){
-        items=await Item.findAll({
-            where:{
-                locationId:id
-            },
-            include:{ model: Location, as:'location'}
-        })
-    }else{
-        items=await Item.findAll({
-            order:[["name", "ASC"]],//default by name
-            include:{ model: Location, as:'location'}
-        });
-
+    let query:Order=[["name", "ASC"]];
+    
+    if(sortBy==="name"){
+        query=[["name", order==="desc"? "DESC":"ASC"]]//if else, if order equals=desc, return DESC else ASC
     }
 
-    if(sortby==="name"){
-        items.sort((a,b)=>a.name.localeCompare(b.name));
+    if(sortBy==="price"){
+        query=[["price", order==="desc"? "DESC":"ASC"]]//if else, if order equals=desc, return DESC else ASC
     }
-
-    if(sortby==="price"){
-        items.sort((a,b)=>Number(a.price)-Number(b.price));
+    
+    if(sortBy==="location"){
+        query=[["locationId", order==="desc"? "DESC":"ASC"]]//if else, if order equals=desc, return DESC else ASC
     }
+    
+    const myOffset=(page-1)*20;
+    return await Item.findAll({
+        where : id ? {locationId:id} : {},//if id isnt null use value location:id, if not use emtpy value for where
+        order: query, 
+        limit:20, 
+        offset:myOffset,
+        include:{
+            model: Location,
+            as:"location"
+        }
+    });
 
-    if(sortby==="location"){
-        items.sort((a,b)=>a.locationId-b.locationId);
-    }
-
-    if(order === "desc"){
-        items.reverse();
-    }
-
-    return items;
 }
 
 export const createItem=async(name:string, price:number, locationId:number)=>{
