@@ -17,7 +17,7 @@ export default class Location extends Model<ILocation>implements ILocation{
 Location.init(
     {
         id:{
-            type: DataTypes.NUMBER,
+            type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: false,
         },

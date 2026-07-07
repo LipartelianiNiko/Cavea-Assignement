@@ -52,6 +52,12 @@ Item.init(
     sequelize,
     tableName: 'items',
     timestamps: true,
+    indexes: [
+      {
+        unique: true,
+        fields: ['name', 'locationId']
+      }
+    ]
   }
 );
 

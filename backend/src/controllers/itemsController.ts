@@ -17,7 +17,7 @@ export const createItemHandler=async(req:Request, res :Response)=>{
     const price=req.body.price;
     const locationId=req.body.locationId;
     
-    if(!name || !price ||locationId){
+    if(!name || !price ||!locationId){
         res.status(400).json({message: "Name, price and location are required"})
     }
     const item= await createItem(name, price, locationId);

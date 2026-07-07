@@ -8,7 +8,7 @@ export const getAllItems=async()=>{
 }
 
 export const createItem=async(name:string, price:number, locationId:number)=>{
-    await Item.create({name, price, locationId})
+    return await Item.create({name, price, locationId})
 }
 
 export const deleteItem=async(id:number)=>{
