@@ -4,7 +4,11 @@ import { getAllItems, deleteItem, createItem } from "../services/itemServices";
 //get all
 export const getAllHandler=async(req:Request, res :Response)=>{
     try{
-        const items=await getAllItems(); 
+        const sortBy= req.query.sortBy as "name" | "price" | "location" | undefined;//either those values or undefined
+        const order=req.query.order as "asc" |"desc" | undefined;
+        const locationId=req.query.order as number | undefined
+
+        const items=await getAllItems(sortBy, order); 
         res.status(200).json(items);//.json() sends the response. not res.status()
     }catch(error){
         res.status(500).json({message:"Failed to get items"})
