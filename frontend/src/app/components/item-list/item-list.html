@@ -1,70 +1,130 @@
 <div class="container mt-4">
-    <button class="btn btn-danger btn-sm" (click)="toAddPage()">Add Item</button>
 
-    <label>Sort by:</label>
+  <h2 class="mb-4">Inventory</h2>
 
-  <select [(ngModel)]="sortBy" (change)="loadItems()">
-    <option value="name">Name</option>
-    <option value="price">Price</option>
-    <option value="location">Location ID</option>
-  </select>
+  <div class="row g-3 mb-4">
 
-  <select [(ngModel)]="order" (change)="loadItems()">
-    <option value="asc">Ascending</option>
-    <option value="desc">Descending</option>
-  </select>
+    <div class="col-md-3">
+      <label class="form-label">Sort By</label>
 
+      <select
+        class="form-select"
+        [(ngModel)]="sortBy"
+        (change)="loadItems()">
 
+        <option value="name">Name</option>
+        <option value="price">Price</option>
+        <option value="location">Location</option>
 
-  <label>Filter by Location:</label>
-
-  <select 
-    [(ngModel)]="locationId"
-    name="locationId"
-    (change)="loadItems()"
-  >
-    <option [value]="undefined" >
-      Select location
-    </option>
-
-    @for (location of locations; track location.id) {
-      <option [value]="location.id">
-        {{ location.name }}
-      </option>
-    }
-
-  </select>
+      </select>
+    </div>
 
 
-  <table class="table table-bordered">
-    <thead>
+    <div class="col-md-3">
+      <label class="form-label">Order</label>
+
+      <select
+        class="form-select"
+        [(ngModel)]="order"
+        (change)="loadItems()">
+
+        <option value="asc">Ascending</option>
+        <option value="desc">Descending</option>
+
+      </select>
+    </div>
+
+
+    <div class="col-md-4">
+      <label class="form-label">Filter by Location</label>
+
+      <select
+        class="form-select"
+        [(ngModel)]="locationId"
+        name="locationId"
+        (change)="loadItems()">
+
+        <option [ngValue]="undefined">
+          All Locations
+        </option>
+
+        @for (location of locations; track location.id) {
+          <option [ngValue]="location.id">
+            {{ location.name }}
+          </option>
+        }
+
+      </select>
+    </div>
+
+
+    <div class="col-md-2 d-flex align-items-end">
+      <button
+        class="btn btn-success w-100"
+        (click)="toAddPage()">
+        Add Item
+      </button>
+    </div>
+
+  </div>
+
+
+  <table class="table table-bordered table-hover">
+
+    <thead class="table-dark">
       <tr>
-        <th>Item Name</th>
-        <th>Item Location</th>
+        <th>Name</th>
+        <th>Location</th>
         <th>Price (GEL)</th>
         <th>Operations</th>
       </tr>
     </thead>
+
     <tbody>
-      @for (item of items; track item.id) {
+
+      @for(item of items; track item.id) {
+
         <tr>
+
           <td>{{ item.name }}</td>
+
           <td>{{ item.location?.name }}</td>
+
           <td>{{ item.price }}</td>
+
           <td>
-            <button class="btn btn-danger btn-sm" (click)="deleteItem(item.id)">Delete</button>
+
+            <button
+              class="btn btn-danger btn-sm"
+              (click)="deleteItem(item.id)">
+              Delete
+            </button>
+
           </td>
+
         </tr>
+
       }
+
     </tbody>
+
   </table>
 
-  <p>total items {{totalItems}}</p>
 
-  @for (page of pages; track page) {
-    <button (click)="loadItems(page)">
-      {{ page }}
-    </button>
-  }
-  
+  <div class="d-flex justify-content-center mt-4">
+
+    @for(page of pages; track page) {
+
+      <button
+        class="btn btn-outline-primary mx-1"
+        (click)="loadItems(page)">
+
+        {{ page }}
+
+      </button>
+
+    }
+
+  </div>
+
 </div>
