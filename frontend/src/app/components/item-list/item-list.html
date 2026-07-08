@@ -1,4 +1,41 @@
 <div class="container mt-4">
+    <button class="btn btn-danger btn-sm" (click)="toAddPage()">Add Item</button>
+
+    <label>Sort by:</label>
+
+  <select [(ngModel)]="sortBy" (change)="loadItems()">
+    <option value="name">Name</option>
+    <option value="price">Price</option>
+    <option value="location">Location ID</option>
+  </select>
+
+  <select [(ngModel)]="order" (change)="loadItems()">
+    <option value="asc">Ascending</option>
+    <option value="desc">Descending</option>
+  </select>
+
+
+
+  <label>Filter by Location:</label>
+
+  <select 
+    [(ngModel)]="locationId"
+    name="locationId"
+    (change)="loadItems()"
+  >
+    <option [value]="undefined" >
+      Select location
+    </option>
+
+    @for (location of locations; track location.id) {
+      <option [value]="location.id">
+        {{ location.name }}
+      </option>
+    }
+
+  </select>
+
+
   <table class="table table-bordered">
     <thead>
       <tr>
@@ -15,10 +52,19 @@
           <td>{{ item.location?.name }}</td>
           <td>{{ item.price }}</td>
           <td>
-            <button class="btn btn-danger btn-sm">Delete</button>
+            <button class="btn btn-danger btn-sm" (click)="deleteItem(item.id)">Delete</button>
           </td>
         </tr>
       }
     </tbody>
   </table>
+
+  <p>total items {{totalItems}}</p>
+
+  @for (page of pages; track page) {
+    <button (click)="loadItems(page)">
+      {{ page }}
+    </button>
+  }
+  
 </div>

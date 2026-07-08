@@ -4,14 +4,24 @@ import { getAllItems, deleteItem, createItem } from "../services/itemServices";
 //get all
 export const getAllHandler=async(req:Request, res :Response)=>{
     try{
+        console.log("GET /inventories", req.query);
         const sortBy= req.query.sortBy as "name" | "price" | "location" | undefined;//either those values or undefined
         const order=req.query.order as "asc" |"desc" | undefined;
-        const locationId=req.query.order as number | undefined
-        const page=Number(req.query.order); 
+        const locationId = req.query.locationId 
+        ? Number(req.query.locationId) 
+        : undefined;
 
-        const items=await getAllItems(page, sortBy, order); 
-        res.status(200).json(items);//.json() sends the response. not res.status()
+        const page = Number(req.query.page) || 1;
+
+        const result=await getAllItems(page, sortBy, order, locationId);//returns count  too, not just item list 
+
+        res.status(200).json({
+            items: result.rows,//send items set separately 
+            totalItems: result.count//send count separately
+        });
+
     }catch(error){
+        console.error('getItemsHandler error:', error);
         res.status(500).json({message:"Failed to get items"})
     }
 }
@@ -38,6 +48,8 @@ export const createItemHandler=async(req:Request, res :Response)=>{
 }
 
 export const removeItemHandler=async(req: Request,res: Response)=>{
+    console.log("DELETE /inventories", req.query);
+
     const id=Number(req.params.id);
     if(!id){
         res.status(400).json({message: "location Id required"});

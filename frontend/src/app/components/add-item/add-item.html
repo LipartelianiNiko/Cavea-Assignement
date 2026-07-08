@@ -1,0 +1,39 @@
+<input 
+  type="text"
+  [(ngModel)]="name"
+  name="name"
+  required
+  placeholder="Enter Item Name"
+>
+
+<input 
+  type="number"
+  [(ngModel)]="price"
+  name="price"
+  required
+  placeholder="Enter Item Price"
+>
+<p>Number of locations: {{ locations.length }}</p>
+<select 
+  [(ngModel)]="locationId"
+  name="locationId"
+required
+  >
+
+  <option [value]="undefined" disabled>
+    Select location
+  </option>
+
+  @for (location of locations; track location.id) {
+    <option [value]="location.id">
+      {{ location.name }}
+    </option>
+  }
+
+</select>
+
+<button type="submit" (click)="createItem()">
+  Create
+</button>
+
+<button (click)="goBack()" >←Back</button>

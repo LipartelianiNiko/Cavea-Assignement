@@ -4,9 +4,9 @@ import { getAllLocationsHandler } from "../controllers/locationController";
 
 const router=Router();
 
-router.get('/items', getAllHandler);
-router.post('/item', createItemHandler);
-router.delete('/items/:id', removeItemHandler);
+router.get('/inventories', getAllHandler);
+router.post('/inventories', createItemHandler);
+router.delete('/inventories/:id', removeItemHandler);
 router.get('/locations', getAllLocationsHandler);
 
 export default router;

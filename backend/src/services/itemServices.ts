@@ -25,7 +25,7 @@ export const getAllItems=async(
     }
     
     const myOffset=(page-1)*20;
-    return await Item.findAll({
+    return await Item.findAndCountAll({//instead of findALL, also returns count, total number of rows/items
         where : id ? {locationId:id} : {},//if id isnt null use value location:id, if not use emtpy value for where
         order: query, 
         limit:20, 
