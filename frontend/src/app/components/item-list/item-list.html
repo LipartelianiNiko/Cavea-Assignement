@@ -1,1 +1,24 @@
-<p>item-list works!</p>
+<div class="container mt-4">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Item Name</th>
+        <th>Item Location</th>
+        <th>Price (GEL)</th>
+        <th>Operations</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (item of items; track item.id) {
+        <tr>
+          <td>{{ item.name }}</td>
+          <td>{{ item.location?.name }}</td>
+          <td>{{ item.price }}</td>
+          <td>
+            <button class="btn btn-danger btn-sm">Delete</button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
