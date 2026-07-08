@@ -77,4 +77,8 @@ export class ItemList implements OnInit {
   toAddPage():void{
     this.router.navigate(['/add-item'])
   }
+
+  toStatsPage():void{
+    this.router.navigate(['/stats'])
+  }
 }

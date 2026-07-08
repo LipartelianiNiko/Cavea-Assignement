@@ -1,0 +1,35 @@
+<table class="table table-bordered table-hover">
+
+    
+    <thead class="table-dark">
+        <tr>
+            <th>Location</th>
+            <th>Total Items</th>
+            <th>Total Prices (GEL)</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+      @for(i of result; track i.locationId) {
+
+        <tr>
+
+          <td>{{i['location.name'] }}</td>
+
+          <td>{{i.totalItems}}</td>
+
+          <td>{{i.totalPrice}}</td>
+        </tr>
+    }
+    </tbody>
+
+    </table>
+
+    <button
+        class="btn btn-secondary"
+        (click)="goBack()">
+
+        ← Back
+
+    </button>
