@@ -1,7 +1,12 @@
-import { Order } from "sequelize";
+import { Order, Sequelize } from "sequelize";
 import Item from "../models/item";
 import Location from "../models/location";
 
+export interface LocationStatistics {
+    location: string;
+    totalItems: number;
+    totalPrice: number;
+}
 
 export const getAllItems=async(
     page:number=1, 
@@ -46,3 +51,4 @@ export const deleteItem=async(id:number)=>{
     const deleted=await Item.destroy({where :{id}})
     return deleted>0
 }
+
