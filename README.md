@@ -177,5 +177,5 @@ http://localhost:4200
 
 ![pagination](screenshots/inventorypagination.png)
 
-![pagination](screenshots/inventorypagination.png)
+![pagination](screenshots/inventorypagination2.png)
 
