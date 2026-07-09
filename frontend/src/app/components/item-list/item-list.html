@@ -122,16 +122,16 @@
   <div class="d-flex justify-content-center mt-4">
 
     @for(page of pages; track page) {
-
-      <button
-        class="btn btn-outline-primary mx-1"
-        (click)="loadItems(page)">
-
-        {{ page }}
-
-      </button>
+    <button
+      class="btn mx-1"
+      [class.btn-primary]="selectedPage === page"
+      [class.btn-outline-primary]="selectedPage !== page"
+      (click)="loadItems(page)">
+      {{ page }}
+    </button>
 
     }
+    <button class="btn btn-outline-primary mx-1" disabled>Total Items {{totalItems}}</button>
 
   </div>
 

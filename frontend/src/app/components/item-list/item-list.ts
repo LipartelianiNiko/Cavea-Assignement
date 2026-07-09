@@ -25,6 +25,8 @@ export class ItemList implements OnInit {
   totalItems:number=0;
   totalPages:number=0;
   pages:number[]=[];
+  selectedPage:number = 1;
+
 
 
   locations: Location[] = [];
@@ -48,6 +50,8 @@ export class ItemList implements OnInit {
   loadItems(page?:number):void{
     if(page){
       this.page=page
+      this.selectedPage = page;
+
     }
     console.log("get All times request sent");
     this.itemService.getItems(this.page, this.sortBy, this.order, this.locationId).subscribe((data) => {
