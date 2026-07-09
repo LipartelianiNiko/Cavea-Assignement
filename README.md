@@ -4,6 +4,8 @@ A full-stack inventory management application built with Angular, Node.js, Expre
 
 The application allows users to manage inventory items, filter and sort data, paginate through records, and view location-based inventory statistics.
 
+note:see screenshots below
+
 ## Features
 
 ### Inventory Management
@@ -48,25 +50,26 @@ The application allows users to manage inventory items, filter and sort data, pa
 
 ## Architecture
 
-The application follows a layered architecture, shown with example of one of the endpoints:
--  starting from front end, example of items list table:
-    1. when first navigating to site, angular's component, items-list is loaded(containts item-list.ts and items-list.html). 
-    2. when items-list component is loaded, OnInit function runs one when loaded, it calls helper function loadPage()
-    3. loadPage() is used to send get request for getting list of items, but not directly, it first calls frontend service function getItems()
-    4. getItems is declared and imlemented in searate file, in class of ItemService. 
-    5. getItems function uses httpClient to send http GET request with page paramater(optionally filtering and sorting paraeters) to url given and waits for the response.
-- On Backend:
-    6. routes, endpoint urls and their coresponding controller functions are declared in separate routes.ts file.
-    7. nce server recieves request, it mathces it to declared url route in routes.ts, in this case "GET /api/inventories". 
-    8. if matched properly, coresponding controler function, which for example request is getAllHandler() in itemsController.ts.
-    9. getAllHandler() takes request, extracts data, extracts page parameter for pagination, optionally sorting and filterin params. 
-    10. then getAllHandler() calls backend service async function getAllItems() of itemService.ts.
-    11. getAllItems() queryes the database with sequelize, gets 20 items only, skips first 20*(pageParam-1) items, also gets totalCount of items. 
-    12. it return result to controler function, which if returned value isnt error, sends back result as json back to frontend. 
-- recieving:
-    13. frontedn service function getItems() recieves the response, returns the data recieved to items-list function loadPage.
-    14. loadPage extracts data, and displays recieved data in html.
 
+The application follows a layered architecture, shown with an example of one endpoint request flow.
+
+1. When navigating to the site, Angular's `item-iist` component is loaded (contains `item-list.ts` and `item-list.html`). When the component is loaded, Angular's `OnInit` function runs once and calls `loadItems()`.
+
+2. `loadItems()` is used to send a GET request for retrieving items, but it does not send it directly. It first calls the frontend service function `getItems()`.
+
+3. `getItems()` is declared and implemented in a separate file inside the `ItemService` class. It uses Angular `HttpClient` to send an HTTP GET request with page parameters (and optionally filtering and sorting parameters) to the specified URL and waits for the response.
+
+4. On the backend, routes, endpoint URLs, and their corresponding controller functions are declared in the separate `routes.ts` file. When the server receives the request, Express matches it to the declared route, in this case `GET /api/inventories`.
+
+5. If matched, the corresponding controller function is called, for example `getAllHandler()` in `itemsController.ts`. `getAllHandler()` receives the request, extracts the page parameter for pagination, and optionally extracts sorting and filtering parameters.
+
+6. The controller then calls the backend service async function `getAllItems()` from `itemService.ts`.
+
+7. `getAllItems()` queries the database using Sequelize, retrieves 20 items per page, skips `20 * (page - 1)` items for pagination, and retrieves the total item count.
+
+8. The service returns the result to the controller. If no error occurs, the controller sends the result back to the frontend as JSON.
+
+9. The frontend service function `getItems()` receives the response and returns the data to the `ItemList` component. `loadItems()` receives the data, assigns it to the component variables, and Angular displays the received data in the HTML template.
 
 
 ## How to Run
