@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Location} from '../models/models';
+import { environment } from '../environments/environment';//for swaping backend target url
+
 
 interface StatsResponse{
     locationId: number,
@@ -14,7 +16,7 @@ interface StatsResponse{
     providedIn: 'root'
 })
 export class LocationService {
-    private locationUrl = 'http://localhost:3000/api/locations';
+    private locationUrl = `${environment.apiUrl}/locations`;//instead of hardcoded url. for easy switching between local and deployement
 
     private http: HttpClient;  
 
