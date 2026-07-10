@@ -14,7 +14,7 @@ interface ItemRestponse{
     providedIn: 'root'
 })
 export class ItemService {
-    private baseUrl = `${environment.apiUrl}/inventories`;//instead of hardcoded url. for easy switching between local and deployement
+    private baseUrl = `${environment.apiUrl}/api/inventories`;//instead of hardcoded url. for easy switching between local and deployement
 
     private http: HttpClient;  
 

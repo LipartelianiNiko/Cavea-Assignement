@@ -16,7 +16,7 @@ interface StatsResponse{
     providedIn: 'root'
 })
 export class LocationService {
-    private locationUrl = `${environment.apiUrl}/locations`;//instead of hardcoded url. for easy switching between local and deployement
+    private locationUrl = `${environment.apiUrl}/api/locations`;//instead of hardcoded url. for easy switching between local and deployement
 
     private http: HttpClient;  
 
