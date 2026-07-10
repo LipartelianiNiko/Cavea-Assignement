@@ -1,4 +1,5 @@
 # Inventory Management System
+link:[https://cavea-assignement.vercel.app/items]
 
 A full-stack inventory management application built with Angular, Node.js, Express, PostgreSQL, and Sequelize.
 
